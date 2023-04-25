@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+    
+		<script>
+			function yasuo(str) {
+				let newStr = ''
+				for (let i = 0; i < str.length; i++) {
+					let num = 1
+					for (let j = i + 1; j < str.length; j++) {
+						if (str[i] === str[j]) {
+							num++
+							i++
+						}
+					}
+					newStr += num > 1 ? `${num}${str[i]}` : str[i]
+				}
+				return newStr
+			}
+		</script>
+	</body>
+</html>

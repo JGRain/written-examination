@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 实现链式的加减乘除（myCalculator(1).add(12).minus(3).multi(10).div(5).getValue() === 25）
+			function myCalculator(n) {
+				class calc {
+					constructor(n) {
+						this.value = n
+					}
+					getValue() {
+						return this.value
+					}
+					add(newVal) {
+						this.value += newVal
+						return this
+					}
+					minus(newVal) {
+						this.value -= newVal
+						return this
+					}
+					multi(newVal) {
+						this.value *= newVal
+						return this
+					}
+					div(newVal) {
+						this.value /= newVal
+						return this
+					}
+				}
+				const obj = new calc(n)
+				return obj
+			}
+		</script>
+	</body>
+</html>

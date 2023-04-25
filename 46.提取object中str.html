@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 输入:
+			const input = {
+				a1: '标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1标题1',
+				b2: '标题2',
+				x3: {
+					d: '段落1',
+					m: 12,
+					k: true,
+					c7: {
+						s: 'abc',
+						k: [],
+					},
+				},
+			}
+			function getSummary(obj) {
+				let result = ''
+				if (typeof object !== 'object' || object === null) return result
+				if (Object.keys(obj).length === 0) return result
+        
+				function walk(object) {
+					if (typeof object !== 'object' || object === null) return
+					for (const key in object) {
+						if (Object.hasOwnProperty.call(object, key)) {
+							const element = object[key]
+							if (typeof element === 'string') {
+								const resultLength = result.length
+								const canAdd = resultLength + element.length < 50
+								if (!canAdd) return
+								result += element
+							} else {
+								walk(element)
+							}
+						}
+					}
+				}
+				walk(obj)
+				return result
+			}
+			console.log(getSummary(input))
+			// 输出:
+			// '标题1标题2段落1abc'
+		</script>
+	</body>
+</html>

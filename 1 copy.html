@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.outer {
+				font-size: 0;
+			}
+			.fixed {
+				width: 200px;
+			}
+			.fixed,
+			.auto {
+				height: 300px;
+				outline: solid 1px blue;
+			}
+
+			.fixed {
+				display: inline-block;
+				vertical-align: top;
+				width: 200px;
+			}
+			.auto {
+				height: 300px;
+				margin-left: -200px;
+				width: 100%;
+				display: inline-block;
+				vertical-align: top;
+				outline: solid 1px blue;
+				box-sizing: border-box;
+			}
+
+			.fixed {
+				display: inline-block;
+				vertical-align: top;
+			}
+			.auto {
+				margin-left: -200px;
+				padding-left: 200px;
+				box-sizing: border-box;
+				width: 100%;
+				display: inline-block;
+				vertical-align: top;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outer">
+			<div class="fixed"></div>
+			<div class="auto">1231312</div>
+		</div>
+	</body>
+</html>

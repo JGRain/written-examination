@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function task(str) {
+				const map = {}
+				for (let i = 0; i < str.length; i++) {
+					const s = str[i]
+					map[s] = (map[s] ?? 0) + 1
+				}
+				const min = Math.min(...Object.values(map))
+				return str.split('').reduce((pre, cur) => {
+					if (map[cur] === min) {
+						return pre
+					}
+					return pre + cur
+				}, '')
+			}
+			task('abcdefgabcdefgw')
+			task('abcdefgabcdefg')
+		</script>
+	</body>
+</html>

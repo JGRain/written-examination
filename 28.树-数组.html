@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 数组转树型结构
+			// 递归
+			function recurrentFilter1(arr, pid = 0) {
+				let data = []
+				arr.forEach((item) => {
+					if (item.pid === pid) {
+						item.children = recurrentFilter(arr, item.id)
+						data.push(item)
+					}
+				})
+				return data
+			}
+			// map
+			function recurrentFilter(data) {
+				const result = [] //  存放结果
+				const itemMap = {}
+				for (const item of data) {
+					const { id, pid } = item
+					itemMap[id] = { ...item, children: [] }
+					const treeItem = itemMap[id]
+					if (pid === 0) {
+						result.push(treeItem)
+					} else {
+					  itemMap[pid]?.children?.push(treeItem)
+					}
+				}
+				return result
+			}
+
+			function recurrentFilter2(data) {
+				let tree = []
+				const map = {}
+				for (const item of data) {
+					const { id, pid } = item
+					let newItem = (map[id] = { ...item, children: [] })
+					if (map[pid]) {
+						map[pid].children.push(newItem)
+					} else {
+						tree.push(newItem)
+					}
+				}
+				return tree
+			}
+		</script>
+		<script>
+			// 树转数组
+			function flattree(tree, arr = []) {
+				tree.forEach((element) => {
+					const { children, ...rest } = element
+					arr.push(rest)
+					if (Array.isArray(children)) {
+						flattree(children, arr)
+					}
+				})
+				return arr
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body></body>
+	<script>
+		/**
+		 * 深拷贝
+		 * @param {Object} obj 要拷贝的对象
+		 * @param {Map} map 用于存储循环引用对象的地址
+		 */
+
+		const deepClone = (obj, map = new Map()) => {
+			if (typeof obj !== 'Object') {
+				return obj
+			}
+			if (map.get(obj)) {
+				return map.get(obj)
+			}
+
+			let result = Array.isArray(obj) ? [] : {}
+
+			// 防止循环引用
+			map.set(obj, result)
+
+			for (const key in obj) {
+				// 保证 key 不是原型属性
+				if (obj.hasOwnProperty(key)) {
+					// 递归调用
+					result[key] = deepClone(obj[key], map)
+				}
+			}
+
+			return result
+		}
+	</script>
+	<script>
+		let a = { a: () => {}, b: 1, c: null, d: [1, 2, 3], e: { a: 1 } }
+		let b = deepClone(a)
+		console.log(b)
+	</script>
+</html>

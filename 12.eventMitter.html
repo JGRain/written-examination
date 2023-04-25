@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			class EventEmitter {
+				constructor() {
+					this._event = Object.create(null)
+				}
+
+				emit(evt, ...args) {
+					if (!this._event[evt]) return false
+					const fns = [...this._event[evt]]
+					fns.forEach((fn) => {
+						fn.apply(this, args)
+					})
+					return true
+				}
+
+				on(evt, fn) {
+					if (typeof fn !== 'function') {
+						throw new TypeError(
+							'The event-triggered callback must be a function'
+						)
+					}
+					if (!this._event[evt]) {
+						this._event[evt] = [fn]
+					} else {
+						this._event[evt].push(fn)
+					}
+				}
+				onnce(evt, fn) {
+					const execFn = () => {
+						fn.apply(this)
+						this.off(evt, execFn)
+					}
+					this.on(evt, execFn)
+				}
+
+				off(evt, fn) {
+					if (!this._event[evt]) return
+					if (!fn) {
+						this._event[evt] && (this._event[evt].length = 0)
+					} else {
+						let index = this._event[evt].indexof(fn)
+						this._event[evt].splice(index, 1)
+					}
+				}
+				removeAllListeners(evt) {
+					if (evt) {
+						this._event[evt] && (this._event[evt].length = 0)
+					} else {
+						this._event = Object.create(null)
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

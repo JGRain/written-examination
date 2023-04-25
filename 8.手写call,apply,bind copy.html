@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			const myCall = function (context) {
+				if (typeof this !== 'function') {
+					throw new Error('Type Error')
+				}
+				let args = [...arguments].slice(1)
+				context = context || window
+				context.fn = this
+				const res = context.fn(...args)
+				delete context.fn()
+				return res
+			}
+
+			const myCall1 = function (context) {
+				if (typeof this !== 'function') {
+					return new Error('typeError')
+				}
+				const arg = [...arguments].slice(1)
+				const fn = Symbol()
+				context[Symbol] = this
+				let res
+				if (arg) {
+					res = context[Symbol](...res)
+				} else {
+					res = context[Symbol]()
+				}
+				delete context[fn]
+				return res
+			}
+
+			const myApply = function (context) {
+				if (typeof this !== 'function') {
+					throw new Error('Type Error')
+				}
+				let result = null
+				context = context || window
+				const fnSymbol = Symbol()
+				context[fnSymbol] = this
+				if (arguments[1]) {
+					result = context[fnSymbol](...arguments[1])
+				} else {
+					result = context[fnSymbol]()
+				}
+				delete context[fnSymbol]
+				return result
+			}
+			const myApply1 = function (context) {
+				if (typeof this !== 'function') {
+					return new Error('typeError')
+				}
+				const arg = arguments[1]
+				const fn = Symbol()
+				context[Symbol] = this
+				let res
+				if (arg) {
+					res = context[Symbol](...res)
+				} else {
+					res = context[Symbol]()
+				}
+				delete context[fn]
+				return res
+			}
+
+			const myBind = function (context) {
+				if (typeof this !== 'function') {
+					throw new Error('Type Error')
+				}
+
+				const args = [...arguments].slice(1)
+				const fn = this
+				return function Fn() {
+					return fn.apply(
+						this instanceof Fn ? this : context,
+						...args.concat(...arguments)
+					)
+				}
+			}
+
+			const myBind1 = function (content) {
+				if (typeof this !== 'function') {
+					throw new Error('Type Error')
+				}
+				const args = [...arguments].slice(1)
+				const fn = this
+				return function Fn() {
+					return fn.apply(
+						this instanceof Fn ? this : content,
+						...args.concat(...arguments)
+					)
+				}
+			}
+		</script>
+	</body>
+</html>

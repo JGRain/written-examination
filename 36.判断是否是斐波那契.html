@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function findFibonacciIndex(n) {
+				let a = 1,
+					b = 1,
+					sum = 0,
+					index = 1
+				while (sum < n) {
+					sum = a + b
+					;[b, a] = [sum, b]
+					index++
+				}
+				return sum === n ? index : -1
+			}
+		</script>
+	</body>
+</html>

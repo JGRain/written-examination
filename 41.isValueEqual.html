@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 深比较
+			function isValueEqual(a, b) {
+				if (typeof a !== 'object' || typeof a === null) {
+					if (a !== b) {
+						console.log(a, b)
+					}
+					// NaN
+					if (a !== a && b !== b) {
+						return true
+					}
+					return a === b
+				}
+				if (Object.keys(a).length !== Object.keys(b).length) {
+					console.log(11)
+					return false
+				}
+
+				const keys = Reflect.ownKeys(a)
+				for (let key of keys) {
+					if (!isValueEqual(a[key], b[key])) {
+						return false
+					}
+				}
+				return true
+			}
+		</script>
+	</body>
+</html>

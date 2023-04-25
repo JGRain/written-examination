@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// isType 函数
+			const isType = (type) => (target) =>
+				`[object ${type}]` === Object.prototype.toString.call(target)
+
+			const isArray = isType('Array')
+			console.log(isArray([]))
+
+			// 循环实现map函数
+			const selfMap = function (fn, context) {
+				let arr = Array.prototype.slice.call(this)
+				let mappedArr = Array()
+				for (let index = 0; index < arr.length; index++) {
+					if (!arr.hasOwnProperty(i)) return
+					mappedArr[i] = fn.call(context, arr[i], i, this)
+				}
+				return mappedArr
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<!-- 树状文件打开递归 -->
+		<script>
+			const treeNode = [
+				{
+					key: 'a-1',
+					children: [
+						{
+							key: 'b-1',
+							children: [
+								{
+									key: 'c-1-1',
+								},
+								{
+									key: 'c-1-2',
+								},
+							],
+						},
+						{
+							key: 'b-2',
+						},
+					],
+				},
+				{
+					key: 'a-2',
+				},
+			]
+			function getOpenKey(trees, openkey, closekey) {
+				let result = []
+				if (Array.isArray(trees)) {
+					trees.forEach((tree) => {
+						if (tree.key !== closekey && openkey.includes(tree.key)) {
+							result.push(tree.key)
+							if (tree.children) {
+								result = result.concat(getOpenKey(tree.children, openkey, closekey))
+							}
+						}
+					})
+				}
+				return result
+			}
+			getOpenKey(treeNode, ['a-1', 'b-1', 'c-1-1','a-2'], 'c-1-1')
+			getOpenKey(treeNode, ['a-1', 'b-1', 'c-1-1','a-2'], 'a-1')
+		</script>
+	</body>
+</html>

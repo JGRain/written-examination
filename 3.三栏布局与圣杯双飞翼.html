@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!-- 三栏模式
+ -->
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.outer {
+				height: 100px;
+        position: relative;
+			}
+			.left {
+        position: absolute;
+				height: 100px;
+				width: 200px;
+				background: tomato;
+			}
+			.right {
+        position: absolute;
+        right: 0;
+        top: 0;
+				height: 100px;
+        width: 200px;
+				/* overflow: hidden; */
+				background: gold;
+			}
+      .center{
+        margin-left: 200px;
+        margin-right: 200px;
+        height: 100px;
+        background: lightcoral;
+      }
+
+      .outer1{
+        height: 100px;
+        display: flex;
+      }
+      .left1{
+        width: 200px;
+        background: gold;
+      }
+      .center1{
+        flex: 1;
+        background-color: tomato;
+      }
+      .right1{
+        width:200px;
+        background: gold;
+      }
+
+      .outer2{
+        height: 100px;
+      }
+
+      .left2{
+         height: 100px;
+        float: left;
+        width: 200px;
+        background: gold;
+      }
+      .center2{
+         height: 100px;
+        margin-left: 200px;
+        margin-right: 200px;
+        background-color: tomato;
+      }
+      .right2{
+         height: 100px;
+        float: right;
+        width:200px;
+        background: gold;
+      }
+
+      /* 圣杯 */
+      .outer3{
+        height: 100px;
+        padding-left: 200px;
+        padding-right: 200px;
+      }
+
+      .left3{
+        position: relative;
+        left: -200px;
+        
+        float: left;
+        margin-left: -100%;
+        
+        height: 100px;
+        width: 200px;
+        background: gold;
+      }
+      .center3{
+        float: left;
+        width: 100%;
+        height: 100px;
+        /* margin-left: 200px;
+        margin-right: 200px; */
+        background-color: tomato;
+      }
+      .right3{
+        position: relative;
+        left: 200px;
+        
+        float: right;
+        margin-left: -200px;
+
+        height: 100px;
+        width:200px;
+        background: gold;
+      }
+      /* 双飞翼 */
+      .outer4{
+        height: 100px;
+       
+      }
+
+      .left4{
+        float: left;
+        margin-left: -100%;
+        
+        height: 100px;
+        width: 200px;
+        background: gold;
+      }
+      .wrapper{
+        float: left;
+        width: 100%;
+        height: 100%;
+        background: lightcyan;
+      }
+      .center4{
+       
+        height: 100px;
+        margin-left: 200px;
+        margin-right: 200px;
+        background-color: tomato;
+      }
+      .right4{
+        /* position: relative;
+        left: 200px; */
+        
+        float: left;
+        margin-left: -200px;
+
+        height: 100px;
+        width:200px;
+        background: gold;
+      }
+      
+
+
+		</style>
+	</head>
+		<div class="outer">
+			<div class="left"></div>
+      <div class="center"></div>
+			<div class="right"></div>
+		</div>
+		<div class="outer1">
+			<div class="left1"></div>
+      <div class="center1"></div>
+			<div class="right1"></div>
+		</div>
+		<div class="outer2">
+			<div class="right2"></div>
+			<div class="left2"></div>
+      <div class="center2"></div>
+		</div>
+    <!-- 圣杯 -->
+		<div class="outer3">
+      <div class="center3"></div>
+			<div class="left3"></div>
+			<div class="right3"></div>
+		</div>
+    <!-- 双飞翼布局， -->
+		<div class="outer4">
+      <div class="wrapper">
+        <div class="center4"></div>
+      </div>
+      <div class="right4"></div>
+			<div class="left4"></div>
+		</div>
+
+	</body>
+</html>

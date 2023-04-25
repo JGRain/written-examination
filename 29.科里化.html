@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 普通
+			var add1 = function (a, b, c) {
+				return a + b + c
+			}
+
+			// 封装
+			var add = function () {
+				var args = []
+				return function () {
+					if (arguments.length === 0) {
+						return args.reduce(function (a, b) {
+							return a + b
+						})
+					}
+					;[].push.apply(args, arguments)
+					return arguments.callee
+				}
+			}
+			var sum = add()
+			sum(1, 1)(1)
+			sum() // 3
+
+			// 封装可执行函数
+			var curry = function (fn) {
+				var args = []
+				return function sell() {
+					if (arguments.length === 0) {
+						return fn(...args)
+					}
+					;[].push.apply(args, arguments)
+					// return arguments.callee
+					return sell
+				}
+			}
+			var multi = function () {
+				return [].reduce.call(arguments, (a, b) => {
+					return a + b
+				})
+			}
+			var add = curry(multi)
+			add(1, 2, 3)(1)
+			add()
+
+			// 去掉尾括号
+			var curry = function (fn) {
+				var len = fn.length
+				var args = []
+				return function sell() {
+					;[].push.apply(args, arguments)
+
+					if (args.length < len) {
+						return sell
+					}
+					return fn(...args)
+				}
+			}
+			var multi = function () {
+				return [].reduce.call(arguments, (a, b) => {
+					return a + b
+				})
+			}
+		</script>
+	</body>
+</html>

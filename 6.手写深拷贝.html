@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body></body>
+	<script>
+		/**
+		 * 深拷贝
+		 * @param {Object} obj 要拷贝的对象
+		 * @param {Map} map 用于存储循环引用对象的地址
+		 */
+
+		const deepClone = (obj, map = new WeekMap()) => {
+			if (typeof obj !== 'Object') {
+				return obj
+			}
+			if (map.get(obj)) {
+				return map.get(obj)
+			}
+
+			let result = Array.isArray(obj) ? [] : {}
+
+			// 防止循环引用
+			map.set(obj, result)
+
+			for (const key in obj) {
+				// 保证 key 不是原型属性
+				if (obj.hasOwnProperty(key)) {
+					// 递归调用
+					result[key] = deepClone(obj[key], map)
+				}
+			}
+
+			return result
+		}
+
+		/**
+		   *
+		   *  1. 支持对象、数组、日期、正则的拷贝
+		      2. 处理原始类型（直接返回）
+		      3. 处理symbol作为键名的情况
+		      4. 处理函数（直接返回）
+		      5. 处理dom（直接返回）
+		      6. 额外开辟一个存储空间WeakMap，解决循环应用递归爆栈的问题
+		        a. WeakMap的意义：配合垃圾回收机制，防止内存溢出
+		**/
+
+		function deepClone(target, hash = new WeakMap()) {
+			// 额外开辟一个存储空间WeakMap来存储当前对象
+			if (typeof target !== 'object'|| target === null) return target // 如果是 null 就不进行拷贝操作
+			if (target instanceof Date) return new Date(target) // 处理日期
+			if (target instanceof RegExp) return new RegExp(target) // 处理正则
+			if (target instanceof HTMLElement) return target // 处理 DOM元素
+
+			// 是引用类型的话就要进行深拷贝
+			if (hash.get(target)) return hash.get(target) // 当需要拷贝当前对象时，先去存储空间中找，如果有的话直接返回
+			const cloneTarget = new target.constructor() // 创建一个新的克隆对象或克隆数组
+			hash.set(target, cloneTarget) // 如果存储空间中没有就存进 hash 里
+
+			Reflect.ownKeys(target).forEach((key) => {
+				// 引入 Reflect.ownKeys，处理 Symbol 作为键名的情况
+				cloneTarget[key] = deepClone(target[key], hash) // 递归拷贝每一层
+			})
+			return cloneTarget // 返回克隆的对象
+		}
+    
+    
+	</script>
+	<script>
+		let a = { a: () => {}, b: 1, c: null, d: [1, 2, 3], e: { a: 1 } }
+		let b = deepClone(a)
+		console.log(b)
+	</script>
+</html>

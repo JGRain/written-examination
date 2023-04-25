@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			class StatisticSDK {
+				constructor(pid) {
+					this.productId = pid
+					this.initError()
+				}
+				// 数据发送
+				send(baseUrl, query = {}) {
+					query.productId = this.productId
+					let queryStr = Object.entries(query)
+						.map(([key, value]) => `${key}=${value}`)
+						.join('&')
+					let img = new Image()
+					img.src = `${baseUrl}?${queryStr}`
+				}
+				// 自定义事件
+				event(key, value = {}) {
+					let baseUrl = 'https://demo'
+					this.send(baseUrl, { event: key, ...value })
+				}
+
+				// 性能
+				initPerformance() {
+					let performanceURL = 'http://performance/'
+					this.send(performanceURL, performance.timing)
+				}
+
+				error(err, otherInfo = {}) {
+					const errorUrl = 'http://error/'
+					const { message, stack } = err
+					this.send(errorUrl, { message, stack, ...otherInfo })
+				}
+
+				initError() {
+					window.addEventListener('error', (event) => {
+						this.error(event)
+					})
+					window.addEventListener('unhandledrejection', (event) => {
+						this.error(new Error(event.resaon), { type: unhandledrejection })
+					})
+				}
+
+				// pv曝光
+				pv() {
+					this.event('pv')
+				}
+			}
+		</script>
+	</body>
+</html>

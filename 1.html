@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.parent {
+				height: 200px;
+				background: palegoldenrod;
+				display: flex;
+			}
+			.child {
+				flex: 1 1 auto;
+			}
+			.child1 {
+				flex: 1 1 auto;
+			}
+			/* div {
+				width: 100px;
+				height: 100px;
+				font-size: 40px;
+				line-height: 100px;
+				color: #fff;
+				text-align: center;
+			} */
+
+			.div1 {
+				background: red;
+				margin: 0 auto;
+			}
+
+			.div2 {
+				background: green;
+				float: left;
+				margin-left: 50%;
+			}
+
+			.div3 {
+				background: blue;
+				float: left;
+				margin-left: -200px;
+			}
+
+			ul {
+				padding: 0;
+			}
+
+			li {
+				list-style: none;
+				text-align: center;
+				border-radius: 5px;
+				background: skyblue;
+			}
+
+			ul {
+				width: 100%;
+				height: 100%;
+				display: grid;
+				grid-template-columns: 30% 30% 30%;
+				grid-template-rows: 30% 30% 30%;
+				grid-gap: 5%;
+			}
+			.div1 {
+				width: 0;
+				height: 0;
+				border-top: 100px solid red;
+				border-right: 100px solid transparent;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <div class="parent">
+			<div class="child"></div>
+			<div class="child1"></div>
+		</div> -->
+		<div class="div1"></div>
+		<div class="div2"></div>
+		<div class="div3"></div>
+
+		<div class="box">
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+				<li>7</li>
+				<li>8</li>
+				<li>9</li>
+			</ul>
+		</div>
+		<div class="div1"></div>
+		<script>
+			function myInstance(left, right) {
+				if (['string', 'number', 'boolean', 'underfined'].includes(typeof left))
+					return false
+				let proto = Object.getPrototypeOf(left)
+				let prototype = right.prototype
+				while (proto) {
+					if (proto === prototype) return true
+					proto = Object.getPrototypeOf(proto)
+				}
+				return false
+			}
+
+			function objectFactory() {
+				let newObject = null
+				let constructor = Array.prototype.shift.call(arguments)
+				console.log(constructor)
+				let result = null
+				// 判断参数是否是一个函数
+				if (typeof constructor !== 'function') {
+					console.error('type error')
+					return
+				}
+				// 新建一个空对象，对象的原型为构造函数的 prototype 对象
+				newObject = Object.create(constructor.prototype)
+				// 将 this 指向新建对象，并执行函数
+				result = constructor.apply(newObject, arguments)
+				// 判断返回对象
+				let flag =
+					result && (typeof result === 'object' || typeof result === 'function')
+				// 判断返回结果
+				return flag ? result : newObject
+			}
+			// 使用方法
+			objectFactory(构造函数, 初始化参数)
+			;[1, 2].forEach((element, index, el) => {
+				console.log(element, index, el)
+			})
+		</script>
+	</body>
+</html>

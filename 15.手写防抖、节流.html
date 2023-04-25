@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 防抖
+			function debounce(func, wait, immediate) {
+				let timeout
+        const context = this
+				return function () {
+					const args = arguments
+					if (timeout) clearTimeout(timeout)
+
+					if (immediate) {
+						if (!timeout) func.apply(context, args)
+						timeout = setTimeout(() => {
+							timeout = null
+						}, wait)
+					} else {
+						timeout = setTimeout(() => {
+							func.apply(context, args)
+						}, wait)
+					}
+				}
+			}
+
+			import { useEffect, useRef, useCallback } from 'react'
+
+			export function useThrottle(fn, delay, dep = []) {
+				const { current } = useRef({ fn, timer: null })
+				useEffect(
+					function () {
+						current.fn = fn
+					},
+					[fn]
+				)
+
+				return useCallback(function f(...args) {
+					if (!current.timer) {
+						current.timer = setTimeout(() => {
+							delete current.timer
+						}, delay)
+						current.fn(...args)
+					}
+				}, dep)
+			}
+
+			// 节流
+			// 时间戳
+			function throttle(func, wait) {
+				let context = this
+				let preTime = 0
+				return function () {
+					let newtime = Date.now()
+					let args = arguments
+					if (newtime - preTime > 0) {
+						func.apply(context, args)
+						preTime = newtime
+					}
+				}
+			}
+
+			// 定时器
+			function throttle1(func, wait) {
+				let timeout
+				var previous = 0
+				var context = this
+				return function () {
+					args = arguments
+					if (!timeout) {
+						timeout = setTimeout(() => {
+							timeout = null
+							func.apply(context, args)
+						}, wait)
+					}
+				}
+			}
+
+			// 第三版
+			// 首次跟最后一次延迟执行
+			function throttle3(func, wait) {
+				var timeout, context, args, result
+				var previous = 0
+
+				var later = function () {
+					previous = +new Date()
+					timeout = null
+					func.apply(context, args)
+				}
+
+				var throttled = function () {
+					var now = +new Date()
+					//下次触发 func 剩余的时间
+					var remaining = wait - (now - previous)
+					context = this
+					args = arguments
+					// 如果没有剩余的时间了或者你改了系统时间
+					if (remaining <= 0 || remaining > wait) {
+						if (timeout) {
+							clearTimeout(timeout)
+							timeout = null
+						}
+						previous = now
+						func.apply(context, args)
+					} else if (!timeout) {
+						timeout = setTimeout(later, remaining)
+					}
+				}
+				return throttled
+			}
+		</script>
+	</body>
+</html>

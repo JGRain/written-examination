@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function _timeout(fn, delay) {
+				const timeEnd = getCur() + delay
+				let timer
+				function step() {
+					if (getCur() > timeEnd) {
+						fn()
+						cancelAnimationFrame(timer)
+					} else {
+						timer = requestAnimationFrame(step)
+					}
+				}
+				timer = requestAnimationFrame(step)
+			}
+
+			function getCur() {
+				return new Date().getTime() || Date.now()
+			}
+		</script>
+	</body>
+</html>

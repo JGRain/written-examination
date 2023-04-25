@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			function calc(arr) {
+				let newArr = [...new Set(arr)]
+				newArr.sort((a, b) => a - b)
+				return (newArr[newArr.length - 2] - newArr[0]).toFixed(1)
+			}
+
+			// 找第二大值
+			function findSencondmax(arr) {
+				if (!Array.isArray(arr) || arr.length < 1) return null
+				let max = arr[0],
+					sencondMax = arr[1]
+				if (max < sencondMax) {
+					;[max, sencondMax] = [sencondMax, max]
+				}
+				for (let i = 0; i < arr.length - 1; i++) {
+					const el = arr[i]
+					if (el > max) {
+						sencondMax = max
+						max = el
+					} else if (el < sencondMax && el > max) {
+						max = el
+					}
+				}
+				return max
+			}
+			// 第二大值减第一小值
+			function findSencondmax(arr) {
+				if (!Array.isArray(arr) || arr.length < 1) return null
+				let max = arr[0],
+					sencondMax = arr[1]
+				if (max < sencondMax) {
+					;[max, sencondMax] = [sencondMax, max]
+				}
+				let min = sencondMax
+				for (let i = 2; i < arr.length - 1; i++) {
+					const el = arr[i]
+					if (el > max) {
+						sencondMax = max
+						max = el
+					} else if (el < sencondMax && el > max) {
+						max = el
+					}
+
+					// 判断最小值
+					if (min > el) {
+						min = el
+					}
+				}
+				return parseFloat((sencondMax - min).toFixed(1))
+			}
+		</script>
+	</body>
+</html>

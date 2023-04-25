@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			var reduce1 = function (cb) {
+				let arr = this
+				let total = arr[0]
+				for (let index = 1; index < arr.length; index++) {
+					total = cb(total, arr[index], index, arr)
+				}
+				return total
+			}
+
+			var reduce2 = function (cb, initialValue) {
+				let arr = this
+				let total = initialValue || arr[0]
+				for (let index = initialValue ? 0 : 1; index < arr.length; index++) {
+					total = cb(total, arr[index], i, arr)
+				}
+				return total
+			}
+
+		</script>
+	</body>
+</html>

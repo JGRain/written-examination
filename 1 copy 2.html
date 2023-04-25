@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.ellipsis {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			.ellipsis3 {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 3;
+			}
+
+			.parent {
+				display: flex;
+				width: 300px;
+				justify-content: center;
+				align-content: center;
+				align-items: stretch;
+			}
+			.child {
+				width: 100px;
+				outline: solid 1px;
+			}
+			@keyframes myan {
+				from {
+					background: red;
+				}
+				to {
+					background: yellow;
+				}
+			}
+
+			.child {
+				animation: myan 5s infinite;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="parent" draggable="true">
+			<div class="child" style="height: 300px"></div>
+			<div class="child"></div>
+		</div>
+		<br />
+		<div class="parent">
+			<div class="child"></div>
+			<div class="child" style="height: 300px"></div>
+		</div>
+
+		<style>
+			#grad1 {
+				height: 200px;
+				background: linear-gradient(45deg, gold 10%, yellow 50%, gold 90%);
+			}
+		</style>
+		<div id="grad1"></div>
+
+		<style>
+			.button {
+				display: inline-block;
+				outline: none;
+				cursor: pointer;
+				text-align: center;
+				text-decoration: none;
+				font: 14px/100% Arial, Helvetica, sans-serif;
+				padding: 0.5em 2em 0.55em;
+				text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+				border-radius: 0.5em;
+				box-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+				color: white;
+				border: solid 1px;
+			}
+		</style>
+		<!-- <div class="button orange">123</div>
+		<script>
+			var btn = document.querySelector('.button')
+			var h = 25
+			setInterval(function () {
+				h++
+				h = h % 360
+				btn.style.borderColor = `hsl(${h}, 95%, 45%)`
+				btn.style.background = `linear-gradient(to bottom,  hsl(${h},95%,54.1%),  hsl(${h},95%,84.1%))`
+			}, 100)
+		</script> -->
+		<!-- <form action="" id="form1"></form>
+
+		<input type="color" />
+		<input type="search" />
+		<input type="time" />
+		<input type="date" />
+		<input
+			type="datetime"
+			autocomplete="on"
+			pattern="^(+86)?\d{10}$"
+			oninvalid="noInvalid"
+			form="form1"
+			draggable="true"
+		/>
+		<progress value="4" max="10" min="0" high="6" low="2" />
+		<script>
+			const elms = document.getElementsByTagName('input')
+			for (const input of document.getElementsByTagName('input')) {
+				input.addEventListener('change', (input) => {
+					console.log(input.target.value)
+				})
+			}
+			const noInvalid = () => {
+				console.log(arguments)
+			}
+		</script> -->
+		<!-- <script>
+			var worker = new Worker('./worker.js')
+			worker.postMessage('hello world!')
+
+			worker.onmessage((event) => {
+				console.log(event)
+				doSomething()
+				worker.terminate()
+			})
+
+			function doSomething() {
+				// 执行任务
+				worker.postMessage('Work done!')
+			}
+		</script> -->
+		<!-- <style>
+			.outer {
+				height: 100px;
+			}
+			.left {
+				float: left;
+				height: 100px;
+				width: 200px;
+				background: tomato;
+			}
+			.right {
+				height: 100px;
+				margin-left: 200px;
+				width: auto;
+				background: gold;
+			}
+		</style> -->
+		<style>
+			.outer {
+				height: 100px;
+			}
+			.left {
+				float: left;
+				height: 100px;
+				width: 200px;
+				background: tomato;
+			}
+			.right {
+				height: 100px;
+				/* margin-left: 200px; */
+				/* overflow: hidden; */
+				/* width: auto; */
+				background: gold;
+			}
+		</style>
+		<div class="outer">
+			<div class="left"></div>
+			<div class="right"></div>
+		</div>
+
+		<div></div>
+	</body>
+</html>

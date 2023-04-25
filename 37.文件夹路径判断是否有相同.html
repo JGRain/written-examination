@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 搜索多个文件夹路径（字符串数组，例如['/usr/bin', '/etc/config']），查找是否有公共路径，若有则返回公共路径（字符串），否则返回 null
+			function findParentDirectory(paths) {
+				let arr = []
+				let res = []
+				paths.forEach((path) => {
+					let res = path.split('/').shift()
+					arr.push(res)
+				})
+				for (let i = 0; i < arr[0].length; i++) {
+					let isTure = true
+					for (let j = 0; j < arr.length - 1; j++) {
+						if (arr[j][i] !== arr[j + 1][i]) isTure = false
+						break
+					}
+					isTure && res.push(arr[0][i])
+				}
+				if (res.length) {
+					return '/' + res.join('/')
+				} else {
+					return null
+				}
+			}
+		</script>
+	</body>
+</html>

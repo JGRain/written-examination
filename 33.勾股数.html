@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 若a * a + b * b === c * c，则称'a,b,c'为勾股数，找出比 n 小的所有勾股数
+			function gougu(n) {
+				let result = []
+				// 最小勾股数从3开始
+				for (let a = 3; a <= n; a++) {
+					for (let b = a + 1; b <= n; b++) {
+						for (let c = b + 1; c <= n; c++) {
+							if (a * a + b * b === c * c) {
+								result.push(`${a},${b},${c}`)
+							}
+						}
+					}
+				}
+				return result
+			}
+			gougu(10)
+		</script>
+	</body>
+</html>

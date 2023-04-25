@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			var topKFrequent = function (nums, k) {
+				const map = new Map()
+				for (let i = 0; i < nums.length; i++) {
+					map.set(nums[i], (map.get(nums[i]) ?? 0) + 1)
+				}
+
+				return Array.from(map)
+					.sort((a, b) => b[1] - a[1])
+					.slice(0, k)
+					.map((item) => item[0])
+			}
+
+			topKFrequent(
+				[1, 2, 3, 4, 5, 6, 7, 8, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 7, 5, 6, 7],
+				4
+			)
+		</script>
+	</body>
+</html>

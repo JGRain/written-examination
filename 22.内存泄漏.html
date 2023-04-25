@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div id="root">
+			<div class="child">我是子元素</div>
+			<button>移除</button>
+		</div>
+		<script>
+			let btn = document.querySelector('button')
+			let child = document.querySelector('.child')
+			let root = document.querySelector('#root')
+
+			btn.addEventListener('click', function () {
+				root.removeChild(child)
+			})
+		</script>
+		<button onclick="myClick()">执行fn1函数</button>
+		<script>
+			function fn1() {
+				let a = new Array(10000) // 这里设置了一个很大的数组对象
+
+				let b = 3
+
+				function fn2() {
+					let c = [1, 2, 3]
+				}
+
+				fn2()
+
+				return a
+			}
+
+			let res = []
+
+			function myClick() {
+				res.push(fn1())
+			}
+		</script>
+	</body>
+</html>

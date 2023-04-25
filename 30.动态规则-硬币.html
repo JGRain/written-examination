@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			// 动态规则分配硬币问题
+			;(function (coins, amount) {
+				if (amount === 0 || amount < 0) return 0
+				const map = new Map()
+				for (let i = 0; i < coins.length; i++) {
+					map.set(coins[i], 1)
+				}
+				function dep(amount) {
+					if (map.get(amount)) {
+						return map.get(amount)
+					}
+					let result = []
+					for (let i = 0; i < coins.length; i++) {
+						if (coins[i] > amount) continue
+						const res = dep(amount - coins[i])
+						if (res === -1) continue
+						result.push(res + 1)
+					}
+					if (!result.length) {
+						map.set(amount, -1)
+						return -1
+					}
+					const min = Math.min(...result)
+					map.set(amount, min)
+					return min
+				}
+				dep(amount)
+				return map.get(amount)
+				console.log(
+					'从面值为 ' +
+						coins +
+						' 的硬币中找零 ' +
+						amount +
+						' 块钱，最少要 ' +
+						DP(amount) +
+						' 枚硬币'
+				)
+			})([1, 2, 5, 10], 36)
+
+			var coinChange = function (coins, amount) {
+				if (amount === 0 || amount < 0) return 0
+				const map = new Map()
+				map.set(0, 0)
+				for (let i = 0; i < coins.length; i++) {
+					map.set(coins[i], 1)
+				}
+
+				function dep(amount) {
+					if (map.get(amount)) {
+						return map.get(amount)
+					}
+					let minCount = Infinity
+					for (let index = 0; index < coins.length; index++) {
+						const coin = coins[index]
+						if (amount < coin) continue
+						let v = dep(amount - coin)
+						if (v === -1) continue
+						minCount = Math.min(minCount, v + 1)
+					}
+					if (minCount === Infinity) {
+						map.set(amount, -1)
+						return -1
+					}
+					map.set(amount, minCount)
+					return minCount
+				}
+				dep(amount)
+				return map.get(amount)
+			}
+		</script>
+	</body>
+</html>
