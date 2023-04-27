@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<!-- <video
+			autoplay
+			loop="loop"
+			src="https://yw-fed-static.oss-cn-hangzhou.aliyuncs.com/marketing/chaoliu/video/guide.mp4"
+		></video> -->
+		<script>
+			// window.onload = () => {
+			// console.log(999)
+			setTimeout(() => {
+				const video = document.createElement('video')
+				video.autoplay = true
+				video.loop = 'loop'
+				video.src =
+					'https://yw-fed-static.oss-cn-hangzhou.aliyuncs.com/marketing/chaoliu/video/guide.mp4'
+				document.body.appendChild(video)
+			}, 2000)
+			// }
+		</script>
+		<script>
+			// 监听video 的src变化
+			window.alert = () => {}
+			window.console2 = window.console
+			window.console = null
+			var video = null
+			var newGuyuTimer = null
+
+			var myInterval = (myInterval = setInterval(() => {
+				video = document.querySelector('video')
+				if (video) {
+					clearInterval(myInterval)
+					videochange()
+					video.addEventListener('play', () => {
+						console2.log('new start')
+						videochange()
+					})
+				}
+			}, 100))
+
+			function videochange() {
+				clearTimeout(newGuyuTimer)
+				newGuyuTimer = null
+				video.muted = true
+				newGuyuTimer = setTimeout(() => {
+					clearTimeout(newGuyuTimer)
+					newGuyuTimer = null
+					video.playbackRate = 16.0
+					videochange()
+				}, 500)
+			}
+		</script>
+
+		<script>
+			// ==UserScript==
+			// @name         New Userscript
+			// @namespace    http://tampermonkey.net/
+			// @version      0.1
+			// @description  try to take over the world!
+			// @author       guyu
+			// @include      *zjzx.ah.cn*
+			// @include        *127.0.0.1:8081*
+			// @connect           zjzx.ah.cn
+			// @grant        none
+			// ==/UserScript==
+
+			;(function () {
+				'use strict'
+				window.alert = () => {}
+				window.console2 = window.console
+				window.console = { log: () => {}, error: () => {} }
+
+				var video = null
+				var newGuyuTimer = null
+				var myInterval = null
+				lunxun()
+				var lunxun = function () {
+					var myInterval = setInterval(() => {
+						video = document.querySelector('video')
+						if (video) {
+							clearInterval(myInterval)
+							videochange()
+							video.addEventListener('play', () => {
+								window.console2.log('new start')
+								videochange()
+							})
+						}
+					}, 300)
+				}
+
+				function videochange() {
+					clearTimeout(newGuyuTimer)
+					newGuyuTimer = null
+					video.muted = true
+					newGuyuTimer = setTimeout(() => {
+						video.playbackRate = 16.0
+						videochange()
+					}, 500)
+				}
+			})()
+		</script>
+	</body>
+</html>

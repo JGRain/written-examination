@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<video
+			autoplay
+			src="https://yw-fed-static.oss-cn-hangzhou.aliyuncs.com/marketing/chaoliu/video/guide.mp4"
+		></video>
+		<script>
+			'use strict'
+
+			var windowType = ''
+
+			function checkWindowType() {
+				var qrcode = document.getElementsByClassName('qrcodebox')
+				if (qrcode.length > 0) {
+					windowType = 'Video'
+				}
+
+				var pageInfo = document.getElementById('pageInfo')
+				if (pageInfo) {
+					windowType = 'Video'
+				}
+
+				var currentItem = document.getElementsByClassName('curSelectedNode')
+				if (currentItem.length > 0) {
+					windowType = 'Main'
+				}
+			}
+
+			setInterval(function () {
+				if (windowType != 'Video') {
+					return
+				}
+
+				var videos = document.getElementsByTagName('video')
+				var qrcode = document.getElementsByClassName('qrcodebox')
+				var docMain = window.parent.document
+
+				// 没有视频，或者视频播放结束后，模拟点击“下一课”
+				if (
+					!IsVideo(docMain) ||
+					(qrcode.length > 0 && qrcode[0].style.display == 'block')
+				) {
+					var next_video = docMain.getElementsByClassName(
+						'progress_btn half_play'
+					)
+					if (next_video.length > 0) {
+						next_video[0].previousSibling.click()
+					} else {
+						next_video = docMain.getElementsByClassName('progress_btn not_play')
+						if (next_video.length > 0) {
+							next_video[0].previousSibling.click()
+						} else {
+							// 结束
+						}
+					}
+				} else {
+					for (var i = 0; i < videos.length; i++) {
+						var current_video = videos[i]
+
+						// 静音
+						current_video.volume = 0
+						// 2倍速
+						// current_video.playbackRate = 2.0
+						if (current_video.paused) {
+							current_video.play()
+						}
+					}
+				}
+			}, 2000)
+
+			function hasClass(element, cls) {
+				return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1
+			}
+
+			function IsVideo(doc) {
+				var ret = false
+				var a = doc.getElementsByClassName('curSelectedNode')
+				if (a.length > 0) {
+					var status = a[0].nextSibling
+					ret =
+						hasClass(status, 'progress_btn') && !hasClass(status, 'all_play')
+				}
+				return ret
+			}
+
+			checkWindowType()
+		</script>
+	</body>
+</html>
